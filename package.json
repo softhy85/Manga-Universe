@@ -1,0 +1,25 @@
+{
+  "name": "manga-universe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm i && node .\\src\\index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/softhy85/Manga-Universe.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/softhy85/Manga-Universe/issues"
+  },
+  "homepage": "https://github.com/softhy85/Manga-Universe#readme",
+  "dependencies": {
+    "discord-akairo": "github:discord-akairo/discord-akairo",
+    "discord.js": "^13.0.0"
+  }
+}
