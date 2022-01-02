@@ -1,10 +1,14 @@
 const GotoClient = require('./structures/GotoClient');
 const { TOKEN } = require('./util/config')
 
-let client = new GotoClient(
-    {
-        prefix: '!'
-    }
-);
+if (TOKEN != '') {
+    let client = new GotoClient(
+        {
+            prefix: '!'
+        }
+    );
 
-client.login(TOKEN);
+    client.login(TOKEN);
+} else {
+    console.log('Token not set');
+}
