@@ -10,10 +10,10 @@ class ReadyListener extends Listener {
 
     exec() {
         const message = 'Earth Chan a rejoint la bataille !'
-        console.log(message);
-        const channel = this.client.channels.cache.get('927282461535260672');
+        // const channel = this.client.channels.cache.get('927282461535260672');
 
-        channel.send(message);
+        console.log(message);
+        // channel.send(message);
     }
 }
 

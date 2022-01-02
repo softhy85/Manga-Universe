@@ -1,6 +1,5 @@
 const GotoClient = require('./structures/GotoClient');
-
-const token = 'OTI3MjI3MjkxNDc2NTcwMTQy.YdHJtQ.pVcCWHIP29pl7SmeQLHWDRRkurQ';
+const { TOKEN } = require('./util/config')
 
 let client = new GotoClient(
     {
@@ -8,4 +7,4 @@ let client = new GotoClient(
     }
 );
 
-client.login(token);
+client.login(TOKEN);
