@@ -1,23 +1,23 @@
 const { Listener } = require('discord-akairo');
-const { ARR_CHANNEL } = require('./../../util/config.js');
+const { REM_CHANNEL } = require('./../../util/config.js');
 const { MessageEmbed, MessageAttachment } = require('discord.js');
 const Canvas = require('canvas');
-class GuildMemberAddListener extends Listener {
+class GuildMemberRemoveListener extends Listener {
     constructor() {
-        super('guildMemberAdd', {
+        super('guildMemberRemove', {
             emitter: 'client',
-            event: 'guildMemberAdd'
+            event: 'guildMemberRemove'
         });
     }
 
-    async imageArriveChannel(member, channel) {
+    async imageRemoveChannel(member, channel) {
         const usernameComplet = member.user.username;
         var usernameCrop = usernameComplet;
         const canvas = Canvas.createCanvas(700, 250);
         const context = canvas.getContext('2d');
 
         // Start Ajouter Background
-        const background = await Canvas.loadImage('https://i.imgur.com/kbuxaSd.jpg');
+        const background = await Canvas.loadImage('https://i.imgur.com/wLFlBgJ.jpg');
 
         context.drawImage(background, 0, 0, canvas.width, canvas.height);
         context.strokeStyle = '#0099ff';
@@ -59,16 +59,16 @@ class GuildMemberAddListener extends Listener {
 
         const embed = new MessageEmbed()
             .setColor('#dac147')
-            .setTitle(`${usernameComplet} a rejoint la bataille !`)
+            .setTitle(`${usernameComplet} a deserté la bataille !`)
 
-        console.log(`${usernameComplet} a rejoint la bataille !`);
+        console.log(`${usernameComplet} a deserté la bataille !`);
         return channel.send({ embeds: [embed], files: [attachment] });
     };
 
     exec(member) {
-        const channel = this.client.channels.cache.get(ARR_CHANNEL);
-        this.imageArriveChannel(member, channel);
+        const channel = this.client.channels.cache.get(REM_CHANNEL);
+        this.imageRemoveChannel(member, channel);
     }
 }
 
-module.exports = GuildMemberAddListener;
+module.exports = GuildMemberRemoveListener;

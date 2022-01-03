@@ -1,5 +1,6 @@
 const GotoClient = require('./structures/GotoClient');
-const { TOKEN } = require('./util/config')
+const { TOKEN } = require('./util/config');
+
 
 if (TOKEN === '' || TOKEN === null || TOKEN === undefined) {
     console.log('Token not set');

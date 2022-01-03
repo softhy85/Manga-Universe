@@ -14,7 +14,7 @@ module.exports = class GotoClient extends AkairoClient {
                     status: 'dnd',
                     activities: [
                         {
-                            name: 'Watching teh universe <3',
+                            name: 'Watching the universe <3',
                             type: 'WATCHING'
                         }
                     ]
@@ -35,7 +35,6 @@ module.exports = class GotoClient extends AkairoClient {
         });
 
         this.CommandHandler.loadAll();
-
         this.CommandHandler.useListenerHandler(this.ListenerHandler);
         this.ListenerHandler.loadAll();
     }

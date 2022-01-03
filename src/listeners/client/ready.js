@@ -1,4 +1,5 @@
 const { Listener } = require('discord-akairo');
+const { CMD_CHANNEL } = require('./../../util/config.js');
 
 class ReadyListener extends Listener {
     constructor() {
@@ -10,10 +11,10 @@ class ReadyListener extends Listener {
 
     exec() {
         const message = 'Earth Chan a rejoint la bataille !'
-        // const channel = this.client.channels.cache.get('927282461535260672');
+        const channel = this.client.channels.cache.get(CMD_CHANNEL);
 
         console.log(message);
-        // channel.send(message);
+        channel.send(message);
     }
 }
 

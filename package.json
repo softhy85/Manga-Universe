@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/softhy85/Manga-Universe#readme",
   "dependencies": {
+    "canvas": "^2.8.0",
     "discord-akairo": "github:discord-akairo/discord-akairo",
     "discord.js": "^13.0.0"
   }
