@@ -79,13 +79,13 @@ module.exports = class GotoClient extends AkairoClient {
 
     async start() {
         try {
-            if (MONGO_STR) {
-                await mongoose.connect(MONGO_STR, {
+            if (process.env.MONGO_STR) {
+                await mongoose.connect(process.env.MONGO_STR, {
                     useNewUrlParser: true,
                     useUnifiedTopology: true
                 });
             } else {
-                await mongoose.connect(process.env.MONGO_STR, {
+                await mongoose.connect(MONGO_STR, {
                     useNewUrlParser: true,
                     useUnifiedTopology: true
                 });
@@ -98,10 +98,10 @@ module.exports = class GotoClient extends AkairoClient {
 
         await this.init();
         try {
-            if (TOKEN) {
-                this.login(TOKEN);
-            } else {
+            if (process.env.TOKEN) {
                 this.login(process.env.TOKEN);
+            } else {
+                this.login(TOKEN);
             }
         } catch (e) {
             console.log("Login erreur\n\n", e);
