@@ -1,6 +1,7 @@
 module.exports = {
     TOKEN: '',
-    COMMANDCHANNEL: '',
-    ARRIVECHANNEL: '',
-    AREMOVECHANNEL: ''
+    CMD_CHANNEL: '',
+    ARR_CHANNEL: '',
+    REM_CHANNEL: '',
+    MONGO_STR: ''
 }

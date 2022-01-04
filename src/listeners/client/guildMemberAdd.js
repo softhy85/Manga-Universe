@@ -2,6 +2,7 @@ const { Listener } = require('discord-akairo');
 const { ARR_CHANNEL } = require('./../../util/config.js');
 const { MessageEmbed, MessageAttachment } = require('discord.js');
 const Canvas = require('canvas');
+
 class GuildMemberAddListener extends Listener {
     constructor() {
         super('guildMemberAdd', {
@@ -17,7 +18,7 @@ class GuildMemberAddListener extends Listener {
         const context = canvas.getContext('2d');
 
         // Start Ajouter Background
-        const background = await Canvas.loadImage('https://i.imgur.com/kbuxaSd.jpg');
+        const background = await Canvas.loadImage('https://i.imgur.com/SDzzDg2.jpg');
 
         context.drawImage(background, 0, 0, canvas.width, canvas.height);
         context.strokeStyle = '#0099ff';
@@ -28,19 +29,20 @@ class GuildMemberAddListener extends Listener {
         if (usernameCrop.length > 11) {
             usernameCrop = usernameCrop.slice(0, 11) + '...'
         }
-        context.font = '60px sans-serif';
-        context.fillStyle = '#000000';
-        context.fillText(usernameCrop, canvas.width / 2.5 + 1, canvas.height / 1.8 + 1);
 
-        context.font = '60px sans-serif';
+        context.font = '40px "Anime Ace 2.0 BB"';
+        context.fillStyle = '#000000';
+        context.fillText(usernameCrop, canvas.width / 2.5 + 2, canvas.height / 1.8 + 2);
+
+        context.font = '40px "Anime Ace 2.0 BB"';
         context.fillStyle = '#ffffff';
         context.fillText(usernameCrop, canvas.width / 2.5, canvas.height / 1.8);
         // End Ajouter Text
 
         // Start Ajouter un cadre à l'Image de Profile
         context.beginPath();
-        context.arc(125, 125, 102, 0, Math.PI * 2, true);
-        context.fillStyle = '#21CA86';
+        context.arc(125, 125, 105, 0, Math.PI * 2, true);
+        context.fillStyle = '#2F7BEF';
         context.closePath();
         context.fill();
         // End Ajouter un cadre à l'Image de Profile
@@ -60,6 +62,8 @@ class GuildMemberAddListener extends Listener {
         const embed = new MessageEmbed()
             .setColor('#dac147')
             .setTitle(`${usernameComplet} a rejoint la bataille !`)
+            .setTimestamp()
+            .setFooter('Earth Chan vous dit à la prochaine', 'https://i.imgur.com/xOl5Quf.png');
 
         console.log(`${usernameComplet} a rejoint la bataille !`);
         return channel.send({ embeds: [embed], files: [attachment] });

@@ -17,7 +17,7 @@ class GuildMemberRemoveListener extends Listener {
         const context = canvas.getContext('2d');
 
         // Start Ajouter Background
-        const background = await Canvas.loadImage('https://i.imgur.com/wLFlBgJ.jpg');
+        const background = await Canvas.loadImage('https://i.imgur.com/UbhgFxT.jpg');
 
         context.drawImage(background, 0, 0, canvas.width, canvas.height);
         context.strokeStyle = '#0099ff';
@@ -28,19 +28,20 @@ class GuildMemberRemoveListener extends Listener {
         if (usernameCrop.length > 11) {
             usernameCrop = usernameCrop.slice(0, 11) + '...'
         }
-        context.font = '60px sans-serif';
-        context.fillStyle = '#000000';
-        context.fillText(usernameCrop, canvas.width / 2.5 + 1, canvas.height / 1.8 + 1);
 
-        context.font = '60px sans-serif';
+        context.font = '40px "Anime Ace 2.0 BB"';
+        context.fillStyle = '#000000';
+        context.fillText(usernameCrop, canvas.width / 2.5 + 2, canvas.height / 1.8 + 2);
+
+        context.font = '40px "Anime Ace 2.0 BB"';
         context.fillStyle = '#ffffff';
         context.fillText(usernameCrop, canvas.width / 2.5, canvas.height / 1.8);
         // End Ajouter Text
 
         // Start Ajouter un cadre à l'Image de Profile
         context.beginPath();
-        context.arc(125, 125, 102, 0, Math.PI * 2, true);
-        context.fillStyle = '#21CA86';
+        context.arc(125, 125, 105, 0, Math.PI * 2, true);
+        context.fillStyle = '#2F7BEF';
         context.closePath();
         context.fill();
         // End Ajouter un cadre à l'Image de Profile
@@ -60,6 +61,8 @@ class GuildMemberRemoveListener extends Listener {
         const embed = new MessageEmbed()
             .setColor('#dac147')
             .setTitle(`${usernameComplet} a deserté la bataille !`)
+            .setTimestamp()
+            .setFooter('Earth Chan vous dit à la prochaine', 'https://i.imgur.com/xOl5Quf.png');
 
         console.log(`${usernameComplet} a deserté la bataille !`);
         return channel.send({ embeds: [embed], files: [attachment] });

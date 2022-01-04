@@ -3,7 +3,13 @@ const { Command } = require('discord-akairo');
 class PingCommand extends Command {
     constructor() {
         super('ping', {
-            aliases: ['ping']
+            aliases: ['ping'],
+            description: {
+                content: 'La commande ping renvoie la latence de Earth Chan',
+                usage: 'ping',
+                exemples: ['ping']
+            },
+            category: 'Misc'
         });
     }
 
