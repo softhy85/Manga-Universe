@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo Test && exit 0",
-    "start": "npm i && node ./src/index.js"
+    "init": "npm i",
+    "start": "node ./src/index.js"
   },
   "repository": {
     "type": "git",
