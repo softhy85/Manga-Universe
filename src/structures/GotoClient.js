@@ -79,18 +79,18 @@ module.exports = class GotoClient extends AkairoClient {
 
     async start() {
         try {
-            console.log(process.env.MONGO_STR);
-            if (process.env.MONGO_STR) {
-                await mongoose.connect(process.env.MONGO_STR, {
-                    useNewUrlParser: true,
-                    useUnifiedTopology: true
-                });
-            } else {
-                await mongoose.connect(MONGO_STR, {
-                    useNewUrlParser: true,
-                    useUnifiedTopology: true
-                });
-            }
+            // console.log(process.env.MONGO_STR);
+            // if (process.env.MONGO_STR) {
+            await mongoose.connect(process.env.MONGO_STR, {
+                useNewUrlParser: true,
+                useUnifiedTopology: true
+            });
+            // } else {
+            //     await mongoose.connect(MONGO_STR, {
+            //         useNewUrlParser: true,
+            //         useUnifiedTopology: true
+            //     });
+            // }
             console.log("DB connectée!");
         } catch (e) {
             console.log("DB non connectée !\n\n", e);
@@ -99,12 +99,12 @@ module.exports = class GotoClient extends AkairoClient {
 
         await this.init();
         try {
-            console.log(process.env.TOKEN);
-            if (process.env.TOKEN) {
-                this.login(process.env.TOKEN);
-            } else {
-                this.login(TOKEN);
-            }
+            // console.log(process.env.TOKEN);
+            // if (process.env.TOKEN) {
+            this.login(process.env.TOKEN);
+            // } else {
+            // this.login(TOKEN);
+            // }
         } catch (e) {
             console.log("Login erreur\n\n", e);
             return process.exit();
