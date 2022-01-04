@@ -5,7 +5,11 @@ const guildSchema = Schema({
     prefix: {
         type: String,
         default: '!'
-    }
+    },
+    roles: [],
+    idChannelArrive: '',
+    idChannelPartir: '',
+    idChannelCommands: ''
 })
 
 module.exports = {

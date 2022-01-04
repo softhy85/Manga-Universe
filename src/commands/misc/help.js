@@ -17,57 +17,67 @@ class HelpCommand extends Command {
         });
     }
 
-    exec(message, args) {
-        const prefix = this.handler.prefix;
-        const command = args.command;
+    async exec(message, args) {
+        if (message.guild) {
+            const prefix = await this.handler.prefix(message);
+            const command = args.command;
+            const admin = await this.client.isUserAdmin(message.member);
+            var owner = (message.author.id === this.client.ownerID ? true : false);
 
-        if (!command) {
-            let embed = new MessageEmbed()
-                .setColor('#EFAC2F')
-                .setTitle('Earth Chan va vous aidé !!!')
-                .setAuthor("Vous avez besoin d'aide ?", this.client.user.displayAvatarURL())
-                .setDescription('Voici la liste des commandes :\n**-----------**');
+            if (!command) {
+                let embed = new MessageEmbed()
+                    .setColor('#EFAC2F')
+                    .setTitle('Earth Chan va vous aidé !!!')
+                    .setAuthor("Vous avez besoin d'aide ?", this.client.user.displayAvatarURL())
+                    .setDescription('Voici la liste des commandes :\n**-----------**');
 
-            const categories = this.handler.categories.values()
-            for (const category of categories) {
-                var name = ''
-                name = `ф ${category.id}`;
-                var value = ''
-                for (const aliase of category) {
-                    if (value != '') {
-                        value += ', '
+                const categories = this.handler.categories.values()
+                for (const category of categories) {
+                    var name = ''
+                    name = `ф ${category.id}`;
+                    var value = ''
+                    for (const aliase of category) {
+                        if (value != '') {
+                            value += ', '
+                        }
+                        if (aliase != '') {
+                            value += `\`${aliase[0]}\``;
+                        }
                     }
-                    if (aliase != '') {
-                        value += `\`${aliase[0]}\``;
+                    if (value === undefined || value === null || value === '') {
+                        value = '...'
+                    }
+
+                    if (category.id === 'Dev' && owner) {
+                        embed.addField(name, value);
+                    } else if (category.id === 'Admin' && (admin || owner)) {
+                        embed.addField(name, value);
+                    }
+                    if (category.id !== 'Dev' && category.id !== 'Admin') {
+                        embed.addField(name, value);
                     }
                 }
-                if (value === undefined || value === null || value === '') {
-                    value = '...'
-                }
-                if (category.id != 'Dev' || message.author.id === this.client.ownerID) {
-                    embed.addField(name, value);
-                }
+
+                embed
+                    .addField(
+                        '-----------',
+                        `**\`${prefix}help <command>\` pour des infos sur une commande spécifique.**\nExemples:\n\`${prefix}help ping\` | \`${prefix}help userinfo\``
+                    )
+                    .setTimestamp()
+                    .setFooter('Earth Chan vous dit à la prochaine', 'https://i.imgur.com/xOl5Quf.png');
+
+                return message.channel.send({ embeds: [embed] });
             }
+            return message.channel.send(stripIndents`
+            \`\`\`makefile
+            [Help: Command -> ${command.aliases[0]}] ${command.ownerOnly ? '/!\\ Admin Only /!\\' : ''}
 
-            embed
-                .addField(
-                    '-----------',
-                    `**\`${prefix}help <command>\` pour des infos sur une commande spécifique.**\nExemples:\n\`${prefix}help ping\` | \`${prefix}help userinfo\``
-                )
-                .setTimestamp()
-                .setFooter('Earth Chan vous dit à la prochaine', 'https://i.imgur.com/xOl5Quf.png');
-
-            return message.channel.send({ embeds: [embed] });
+            ${command.description.content}
+            Utilisation: ${prefix}${command.description.usage}
+            Exemples: ${prefix}${command.description.exemples.join(` | ${prefix}`)}
+            \`\`\`
+            `);
         }
-        return message.channel.send(stripIndents`
-        \`\`\`makefile
-        [Help: Command -> ${command.aliases[0]}] ${command.ownerOnly ? '/!\\ Admin Only /!\\' : ''}
-
-        ${command.description.content}
-        Utilisation: ${prefix}${command.description.usage}
-        Exemples: ${prefix}${command.description.exemples.join(' | ${prefix}')}
-        \`\`\`
-        `);
     }
 }
 

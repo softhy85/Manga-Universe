@@ -1,5 +1,4 @@
 const { Listener } = require('discord-akairo');
-const { ARR_CHANNEL } = require('./../../util/config.js');
 const { MessageEmbed, MessageAttachment } = require('discord.js');
 const Canvas = require('canvas');
 
@@ -69,9 +68,12 @@ class GuildMemberAddListener extends Listener {
         return channel.send({ embeds: [embed], files: [attachment] });
     };
 
-    exec(member) {
-        const channel = this.client.channels.cache.get(ARR_CHANNEL);
-        this.imageArriveChannel(member, channel);
+    async exec(member) {
+        const guild = await this.client.guildSettings.get(member.guild);
+        if (guild.idChannelArrive) {
+            const channel = this.client.channels.cache.get(guild.idChannelArrive);
+            return (this.imageArriveChannel(member, channel));
+        }
     }
 }
 

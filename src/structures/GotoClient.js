@@ -1,6 +1,7 @@
-const { AkairoClient, CommandHandler, ListenerHandler } = require('discord-akairo');
-const { TOKEN, MONGO_STR } = require('../util/config');
 const mongoose = require('mongoose');
+const { TOKEN, MONGO_STR } = require('../util/config');
+const { GuildsProvider } = require('../structures/Providers')
+const { AkairoClient, CommandHandler, ListenerHandler } = require('discord-akairo');
 
 module.exports = class GotoClient extends AkairoClient {
     constructor(config = {}) {
@@ -27,7 +28,11 @@ module.exports = class GotoClient extends AkairoClient {
 
         this.CommandHandler = new CommandHandler(this, {
             allowMention: true,
-            prefix: config.prefix,
+            prefix: async message => {
+                const guildPrefix = await this.guildSettings.get(message.guild);
+                if (guildPrefix) return guildPrefix.prefix;
+                return config.prefix;
+            },
             defaultCooldown: 2000,
             directory: './src/commands/'
         });
@@ -35,6 +40,33 @@ module.exports = class GotoClient extends AkairoClient {
         this.ListenerHandler = new ListenerHandler(this, {
             directory: './src/listeners/'
         });
+
+        this.guildSettings = new GuildsProvider();
+    }
+
+    async isUserAdmin(member) {
+        const guild = await this.guildSettings.get(member.guild);
+        const serverRoles = guild.roles;
+
+        if (!serverRoles) {
+            return (true);
+        } else if (serverRoles.size == 0) {
+            return (true);
+        } else if (!serverRoles.find(serverRole => serverRole.admin)) {
+            return (true);
+        }
+
+        var ok = false;
+        const roles = member.roles.cache;
+        roles.forEach((role) => { })
+        for (var [key, value] of roles) {
+            for (var key in serverRoles) {
+                if (value.id === serverRoles[key].id && serverRoles[key].admin) {
+                    ok = true;
+                }
+            }
+        }
+        return (ok);
     }
 
     init() {

@@ -1,6 +1,6 @@
 const { Listener } = require('discord-akairo');
+const { Permissions } = require('discord.js');
 const { Guild } = require('../../structures/Models')
-const { ARR_CHANNEL } = require('./../../util/config.js');
 
 class GuildCreateListener extends Listener {
     constructor() {
@@ -11,7 +11,15 @@ class GuildCreateListener extends Listener {
     }
 
     async exec(guild) {
-        await Guild.create({ id: guild.id }, err => {
+        const guildRoles = guild.roles.cache;
+        var roles = [];
+
+        for (guildRole in guildRoles) {
+            const admin = guildRole.permissions.has(Permissions.FLAGS.ADMINISTRATOR);
+            roles.push({ id: guildRole.id, admin: admin });
+        }
+
+        await Guild.create({ id: guild.id, roles: roles }, err => {
             if (err)
                 return console.log("Erreur lors de l'ajout du serveur !", err);
             else
