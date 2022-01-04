@@ -17,12 +17,12 @@ class PingCommand extends Command {
     async exec(message) {
         const sentMessage = await message.channel.send('Pong!');
         const timeStamp = message.editedTimestamp ? message.editedTimestamp : message.createdTimestamp;
-        const botLatency = `${'```'}\n ${Math.round(sentMessage.createdTimestamp - timeStamp)}ms ${'```'}`;
-        const apiLatency = `${'```'}\n ${Math.round(message.client.ws.ping)}ms ${'```'}`;
+        const botLatency = `${'```'}\n ${Math.round(sentMessage.createdTimestamp - timeStamp)} ms ${'```'}`;
+        const apiLatency = `${'```'}\n ${Math.round(message.client.ws.ping)} ms ${'```'}`;
 
         const embed = new MessageEmbed()
             .setColor('#782FEF')
-            .setTitle('Pong! 🏓')
+            .setTitle('Pong!  🏓')
             .addField('Latence de Earth Chan', botLatency, true)
             .addField("latence de l'Api", apiLatency, true)
             .setTimestamp()
