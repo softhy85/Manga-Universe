@@ -79,6 +79,7 @@ module.exports = class GotoClient extends AkairoClient {
 
     async start() {
         try {
+            console.log(process.env.MONGO_STR);
             if (process.env.MONGO_STR) {
                 await mongoose.connect(process.env.MONGO_STR, {
                     useNewUrlParser: true,
@@ -98,6 +99,7 @@ module.exports = class GotoClient extends AkairoClient {
 
         await this.init();
         try {
+            console.log(process.env.TOKEN);
             if (process.env.TOKEN) {
                 this.login(process.env.TOKEN);
             } else {
