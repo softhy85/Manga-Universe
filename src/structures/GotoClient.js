@@ -78,6 +78,7 @@ module.exports = class GotoClient extends AkairoClient {
     }
 
     async start() {
+        console.log(process.env)
         try {
             console.log(process.env.MONGO_STR);
             if (process.env.MONGO_STR) {
