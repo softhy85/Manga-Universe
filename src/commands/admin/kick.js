@@ -13,7 +13,7 @@ class KickCommand extends Command {
             category: 'Admin',
             channel: 'guild',
             args: [
-                { id: 'member', type: 'string', dafault: 'member', required: true },
+                { id: 'member', type: 'member', dafault: 'member', required: true },
                 { id: 'reason', type: 'string', match: 'restContent', default: 'Raison non spécifié' }
             ],
             clientPermission: ['KICK_MEMBERS']
@@ -24,7 +24,7 @@ class KickCommand extends Command {
         if (message.guild) {
             var ok = await this.client.isUserAdmin(message.member);
             const guilds = await this.client.guildSettings.getAll();
-            const messageError = "Earth Chan n'a pas trouvé cet utilisateur !"
+            const messageError = "Earth Chan n'a pas trouvé cet utilisateur !";
             var logChannel = message.channel;
             for (var key in guilds) {
                 if (guilds[key].idChannelCommands) {
@@ -40,7 +40,7 @@ class KickCommand extends Command {
                         .setColor('#F0E92E')
                         .setAuthor(`${message.member.user.username} (${message.member.user.id})`, message.member.user.displayAvatarURL())
                         .setTitle(`Kick ${member.user.username}(${member.user.id})`)
-                        .setThumbnail(args.member.user.displayAvatarURL())
+                        .setThumbnail(member.user.displayAvatarURL())
                         .setDescription(reason)
                         .setTimestamp()
                         .setFooter('Earth Chan vous dit à la prochaine', 'https://i.imgur.com/xOl5Quf.png');
@@ -52,5 +52,6 @@ class KickCommand extends Command {
             }
         }
     }
+}
 
 module.exports = KickCommand;

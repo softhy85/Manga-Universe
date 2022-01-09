@@ -70,8 +70,8 @@ module.exports = class GotoClient extends AkairoClient {
     }
 
     async init() {
-        await this.CommandHandler.loadAll();
         this.CommandHandler.useListenerHandler(this.ListenerHandler);
+        await this.CommandHandler.loadAll();
         console.log(`Commandes -> ${this.CommandHandler.modules.size}`);
         await this.ListenerHandler.loadAll();
         console.log(`Listeners -> ${this.ListenerHandler.modules.size}`);
@@ -79,7 +79,6 @@ module.exports = class GotoClient extends AkairoClient {
 
     async start() {
         try {
-            console.log(process.env.MONGO_STR);
             if (process.env.MONGO_STR) {
                 await mongoose.connect(process.env.MONGO_STR, {
                     useNewUrlParser: true,
@@ -99,12 +98,12 @@ module.exports = class GotoClient extends AkairoClient {
 
         await this.init();
         try {
-            console.log(process.env.TOKEN);
             if (process.env.TOKEN) {
                 this.login(process.env.TOKEN);
             } else {
                 this.login(TOKEN);
             }
+            console.log("Login succès!");
         } catch (e) {
             console.log("Login erreur\n\n", e);
             return process.exit();

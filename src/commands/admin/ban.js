@@ -8,13 +8,13 @@ class BanCommand extends Command {
             description: {
                 content: 'La commande ban expulsé pour de bon une personne du serveur.',
                 usage: 'ban <member> <days> <raison>',
-                exemples: ['ban @Softy', 'ban @Softy Pourquoi pas']
+                exemples: ['ban @Softy 1', 'ban @Softy 7 Pourquoi pas']
             },
             category: 'Admin',
             channel: 'guild',
             args: [
-                { id: 'member', type: 'string', dafault: 'member', required: true },
-                { id: 'days', type: 'number', default: '7' }
+                { id: 'member', type: 'member', dafault: 'member', required: true },
+                { id: 'days', type: 'number', default: '7', required: true },
                 { id: 'reason', type: 'string', match: 'restContent', default: 'Raison non spécifié' }
             ],
             clientPermission: ['KICK_MEMBERS']
@@ -41,7 +41,7 @@ class BanCommand extends Command {
                         .setColor('#F0E92E')
                         .setAuthor(`${message.member.user.username} (${message.member.user.id})`, message.member.user.displayAvatarURL())
                         .setTitle(`Ban ${member.user.username}(${member.user.id})`)
-                        .setThumbnail(args.member.user.displayAvatarURL())
+                        .setThumbnail(member.user.displayAvatarURL())
                         .setDescription(`Ban for ${days} days, ${reason}`)
                         .setTimestamp()
                         .setFooter('Earth Chan vous dit à la prochaine', 'https://i.imgur.com/xOl5Quf.png');
@@ -53,5 +53,6 @@ class BanCommand extends Command {
             }
         }
     }
+}
 
 module.exports = BanCommand;
