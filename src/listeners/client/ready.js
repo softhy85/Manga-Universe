@@ -19,14 +19,14 @@ class ReadyListener extends Listener {
             status: 'dnd'
         });
         const message = 'Earth Chan a rejoint la bataille !'
-        const guilds = await this.client.guildSettings.getAll();
+        // const guilds = await this.client.guildSettings.getAll();
 
-        for (var key in guilds) {
-            if (guilds[key].idChannelCommands) {
-                const channel = this.client.channels.cache.get(guilds[key].idChannelCommands);
-                channel.send(message);
-            }
-        }
+        // for (var key in guilds) {
+        //     if (guilds[key].idChannelCommands) {
+        //         const channel = this.client.channels.cache.get(guilds[key].idChannelCommands);
+        //         channel.send(message);
+        //     }
+        // }
 
         const nonBotUsers = this.client.users.cache.filter(user => !user.bot);
 
